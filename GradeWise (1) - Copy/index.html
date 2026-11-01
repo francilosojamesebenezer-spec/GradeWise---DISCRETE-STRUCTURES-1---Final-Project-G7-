@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173c2c" />
+    <meta
+      name="description"
+      content="A calculator-first academic planning prototype for GradeWise."
+    />
+    <title>GradeWise · Academic planner</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oleo+Script:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#dashboard" aria-label="GradeWise dashboard">
+          <img src="./assets/gradewise-mark.png" alt="GradeWise" />
+          <span>GradeWise<small>ACADEMIC PLANNER</small></span>
+        </a>
+        <nav class="nav-list" aria-label="Main navigation">
+          <button class="nav-item active" data-view="dashboard">
+            <span class="nav-icon">⌂</span>Overview
+          </button>
+          <button class="nav-item" data-view="grade">
+            <span class="nav-icon">▤</span>Grade Calc
+          </button>
+          <button class="nav-item" data-view="required">
+            <span class="nav-icon">↗</span>Target Score
+          </button>
+          <button class="nav-item" data-view="simulator">
+            <span class="nav-icon">◉</span>Goal Planner
+          </button>
+          <button class="nav-item" data-view="gpa">
+            <span class="nav-icon">∑</span>GPA Tracker
+          </button>
+          <button class="nav-item" data-view="insights">
+            <span class="nav-icon">✳</span>Insights
+          </button>
+        </nav>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button
+            class="mobile-menu"
+            id="mobileMenu"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+          >
+            ☰
+          </button>
+        </header>
+
+        <section
+          class="view active"
+          id="view-dashboard"
+          aria-labelledby="pageTitle"
+        >
+          <div class="dashboard-hero">
+            <div class="page-kicker">YOUR ACADEMIC WORKSPACE</div>
+            <h1 id="pageTitle">Welcome to GradeWise!</h1>
+            <p class="hero-subtitle">Your academic progress, in one place.</p>
+            <div class="hero-copy">
+              GradeWise helps you calculate weighted grades, work out the scores
+              you need, explore hypothetical outcomes, and review your semester
+              GPA and academic insights.
+            </div>
+          </div>
+          <div class="notice">
+            <span class="notice-icon">i</span>
+            <div>
+              <strong>Calculations and Indicators</strong
+              ><span
+                >The results you will see on this page are based on the
+                information you enter. Thus, they do not reflect the official
+                university grades, predictions, or decisions.</span
+              >
+            </div>
+            <button class="notice-close" aria-label="Dismiss notice">×</button>
+          </div>
+          <div class="dashboard-layout">
+            <article class="panel dashboard-tools">
+              <div class="panel-heading">
+                <div>
+                  <div class="page-kicker">GET STARTED</div>
+                  <h2>What’s on your mind today?</h2>
+                  <p>Choose a GradeWise tool to continue.</p>
+                </div>
+              </div>
+              <div class="tool-list">
+                <button class="tool-row" data-navigate="grade">
+                  <span class="tool-symbol">01</span
+                  ><span class="tool-copy"
+                    ><strong>Calculate a grade</strong
+                    ><small>See your current weighted contribution</small></span
+                  ><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-row" data-navigate="required">
+                  <span class="tool-symbol">02</span
+                  ><span class="tool-copy"
+                    ><strong>Find a target score</strong
+                    ><small
+                      >Calculate the average needed on remaining work</small
+                    ></span
+                  ><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-row" data-navigate="simulator">
+                  <span class="tool-symbol">03</span
+                  ><span class="tool-copy"
+                    ><strong>Explore a grade scenario</strong
+                    ><small
+                      >See how a hypothetical score affects your result</small
+                    ></span
+                  ><span class="tool-arrow">↗</span>
+                </button>
+                <button class="tool-row" data-navigate="gpa">
+                  <span class="tool-symbol">04</span
+                  ><span class="tool-copy"
+                    ><strong>Calculate semester GPA</strong
+                    ><small
+                      >Use your course grades and eligible units</small
+                    ></span
+                  ><span class="tool-arrow">↗</span>
+                </button>
+              </div>
+            </article>
+            <div class="dashboard-side">
+              <div class="metric-grid">
+                <article class="metric-card">
+                  <span class="metric-caption">COURSES TRACKED</span
+                  ><strong class="metric-value" id="metricCourses">0</strong
+                  ><small class="metric-foot" id="metricCourseFoot"
+                    >Choose a semester in GPA Tracker</small
+                  >
+                </article>
+                <article class="metric-card">
+                  <span class="metric-caption">SEMESTER GPA</span
+                  ><strong class="metric-value" id="metricGpa">—</strong
+                  ><small class="metric-foot" id="metricUnits"
+                    >No finalized courses yet</small
+                  >
+                </article>
+                <article class="metric-card">
+                  <span class="metric-caption">PROVISIONAL</span
+                  ><strong class="metric-value" id="metricProvisional">0</strong
+                  ><small class="metric-foot">Waiting on final grades</small>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-caption">NEEDING ATTENTION</span
+                  ><strong class="metric-value" id="metricAttention">0</strong
+                  ><small class="metric-foot">Using prototype thresholds</small>
+                </article>
+              </div>
+              <article class="panel dashboard-insights">
+                <div class="panel-heading">
+                  <div>
+                    <div class="page-kicker">RULE-BASED INDICATORS</div>
+                    <h2>Academic insights</h2>
+                  </div>
+                  <button class="panel-link" data-navigate="insights">
+                    View all <span>→</span>
+                  </button>
+                </div>
+                <div id="dashboardInsights" class="preview-content">
+                  <div class="empty-mini">
+                    <strong>Your insights will show here.</strong>
+                    <p>
+                      Add finalized course grades to see which prototype rules
+                      apply.
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <footer class="page-footer">
+            Verify the grading system based on your instructor/syllabus
+            contents.
+          </footer>
+        </section>
+
+        <section class="view" id="view-grade" aria-labelledby="gradeTitle">
+          <div class="page-intro">
+            <div class="page-intro-card">
+              <div class="page-kicker">GRADE CALCULATOR</div>
+              <h1 id="gradeTitle">Know where you are.</h1>
+              <p>
+                Enter category weights and completed score totals to calculate
+                your current contribution.
+              </p>
+            </div>
+          </div>
+          <div class="notice compact">
+            <span class="notice-icon">i</span>
+            <div>
+              <strong>Check your syllabus for official grade weights.</strong
+              ><span>Categorical weights should add up to 100%.</span>
+            </div>
+          </div>
+          <div class="calculator-layout">
+            <form class="panel form-panel" id="gradeForm" novalidate>
+              <div class="form-section-title">
+                <span class="step-number">01</span>
+                <div>
+                  <h2>Choose a course</h2>
+                  <p>
+                    Select the course, component, and term for this calculation.
+                  </p>
+                </div>
+              </div>
+              <div class="field-grid">
+                <label class="field full"
+                  ><span>Course</span
+                  ><select id="gradeCourse" required></select></label
+                ><label class="field"
+                  ><span>Component</span
+                  ><input id="gradeComponent" value="Lecture" readonly /></label
+                ><label class="field"
+                  ><span>Term</span
+                  ><select id="gradeTerm">
+                    <option>Midterm</option>
+                    <option>Final</option>
+                  </select></label
+                >
+              </div>
+              <div class="form-divider"></div>
+              <div class="form-section-title">
+                <span class="step-number">02</span>
+                <div>
+                  <h2>Enter assessment results</h2>
+                  <p>
+                    Add category weights and totals for completed assessments.
+                  </p>
+                </div>
+              </div>
+              <div class="category-table-wrap">
+                <table class="category-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Category</th>
+                      <th scope="col">Weight %</th>
+                      <th scope="col">Earned</th>
+                      <th scope="col">Maximum</th>
+                      <th scope="col">Graded?</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categoryRows"></tbody>
+                </table>
+              </div>
+              <div id="gradeErrors" class="error-box" role="alert" hidden></div>
+              <div class="form-actions">
+                <span class="form-hint"
+                  >Pending categories aren’t counted as zero.</span
+                ><button type="submit" class="primary-button">
+                  Calculate grade <span>→</span>
+                </button>
+              </div>
+            </form>
+            <aside class="result-column">
+              <div class="panel result-panel" id="gradeResult">
+                <div class="result-placeholder">
+                  <div class="placeholder-art">▤</div>
+                  <h2>Your result will appear here</h2>
+                  <p>
+                    Choose a course and enter category weights to see your
+                    current contribution and highest possible result.
+                  </p>
+                  <div class="placeholder-rule"></div>
+                  <small>Calculations use the assumptions you provide.</small>
+                </div>
+              </div>
+              <div class="side-tip">
+                <span class="tip-icon">✦</span>
+                <div>
+                  <strong>Score and maximum</strong>
+                  <p>
+                    Enter the points you earned and the most points available
+                    for graded work in that category. Leave ungraded work
+                    pending.
+                  </p>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section
+          class="view"
+          id="view-required"
+          aria-labelledby="requiredTitle"
+        >
+          <div class="page-intro">
+            <div class="page-intro-card">
+              <div class="page-intro-content">
+                <div class="page-kicker">TARGET SCORE</div>
+                <h1 id="requiredTitle">Know what you NEED to achieve.</h1>
+                <p>
+                  Calculate the average score needed on the remaining grade
+                  weight to reach your target.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="calculator-layout compact-layout">
+            <form class="panel form-panel" id="requiredForm" novalidate>
+              <div class="form-section-title">
+                <span class="step-number">01</span>
+                <div>
+                  <h2>Your current standing</h2>
+                  <p>
+                    Use contribution points already earned toward the final
+                    grade.
+                  </p>
+                </div>
+              </div>
+              <div class="field-grid">
+                <label class="field"
+                  ><span>Current weighted contribution</span>
+                  <div class="input-unit">
+                    <input
+                      type="number"
+                      id="requiredCurrent"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="55"
+                      required
+                    /><span>pts</span>
+                  </div>
+                  <small
+                    >Points out of 100, not a normalized average.</small
+                  ></label
+                ><label class="field"
+                  ><span>Remaining grade weight</span>
+                  <div class="input-unit">
+                    <input
+                      type="number"
+                      id="requiredWeight"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="40"
+                      required
+                    /><span>%</span>
+                  </div></label
+                ><label class="field full"
+                  ><span>Target numerical grade</span>
+                  <div class="input-unit">
+                    <input
+                      type="number"
+                      id="requiredTarget"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="90"
+                      required
+                    /><span>/ 100</span>
+                  </div></label
+                >
+              </div>
+              <div
+                id="requiredErrors"
+                class="error-box"
+                role="alert"
+                hidden
+              ></div>
+              <div class="form-actions">
+                <span class="form-hint"
+                  >The result is a calculation, not a guarantee.</span
+                ><button type="submit" class="primary-button">
+                  Find required score <span>→</span>
+                </button>
+              </div>
+            </form>
+            <aside
+              class="panel result-panel planning-result"
+              id="requiredResult"
+            >
+              <div class="result-placeholder">
+                <div class="placeholder-art">↗</div>
+                <h2>Your target score will appear here</h2>
+                <p>
+                  Enter your current contribution, remaining weight, and target
+                  grade.
+                </p>
+                <div class="placeholder-rule"></div>
+                <small
+                  >Required score = (target − contribution) ÷ remaining
+                  weight</small
+                >
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section
+          class="view"
+          id="view-simulator"
+          aria-labelledby="simulatorTitle"
+        >
+          <div class="page-intro">
+            <div class="page-intro-card">
+              <div class="page-intro-content">
+                <div class="page-kicker">GOAL PLANNER</div>
+                <h1 id="simulatorTitle">Know what you WILL achieve.</h1>
+                <p>
+                  See how a hypothetical average could affect your numerical
+                  result.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="calculator-layout compact-layout">
+            <form class="panel form-panel" id="simulatorForm" novalidate>
+              <div class="form-section-title">
+                <span class="step-number">01</span>
+                <div>
+                  <h2>Your current standing</h2>
+                  <p>
+                    Use the same current contribution and remaining weight as
+                    the Required Score tool.
+                  </p>
+                </div>
+              </div>
+              <div class="field-grid">
+                <label class="field"
+                  ><span>Current weighted contribution</span>
+                  <div class="input-unit">
+                    <input
+                      type="number"
+                      id="simCurrent"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="55"
+                      required
+                    /><span>pts</span>
+                  </div></label
+                ><label class="field"
+                  ><span>Remaining grade weight</span>
+                  <div class="input-unit">
+                    <input
+                      type="number"
+                      id="simWeight"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="40"
+                      required
+                    /><span>%</span>
+                  </div></label
+                ><label class="field full"
+                  ><span>Hypothetical average score</span>
+                  <div class="input-unit">
+                    <input
+                      type="number"
+                      id="simScore"
+                      min="0"
+                      max="100"
+                      step="any"
+                      placeholder="90"
+                      required
+                    /><span>%</span>
+                  </div></label
+                >
+              </div>
+              <div id="simErrors" class="error-box" role="alert" hidden></div>
+              <div class="form-actions">
+                <span class="form-hint"
+                  >These scenarios are hypothetical, not predictions.</span
+                ><button type="submit" class="primary-button">
+                  Explore scenario <span>→</span>
+                </button>
+              </div>
+            </form>
+            <aside
+              class="panel result-panel planning-result"
+              id="simulatorResult"
+            >
+              <div class="result-placeholder">
+                <div class="placeholder-art">◉</div>
+                <h2>Your scenario will appear here</h2>
+                <p>
+                  Try a possible average score to see a hypothetical projected
+                  grade.
+                </p>
+                <div class="placeholder-rule"></div>
+                <small
+                  >Projected grade = contribution + remaining weight × scenario
+                  score</small
+                >
+              </div>
+            </aside>
+          </div>
+          <div class="scenario-explainer">
+            <span>↗</span>
+            <div>
+              <strong
+                >This section is used for comparing the possibilities of what
+                you'll get in the remaining grade component (SA).</strong
+              >
+              <p>
+                The result includes example scores of 70%, 80%, 90%, and 100% in
+                the remaining grade weight (SA).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="view-gpa" aria-labelledby="gpaTitle">
+          <div class="page-intro">
+            <div class="page-intro-card">
+              <div class="page-intro-content">
+                <div class="page-kicker">GPA TRACKER</div>
+                <h1 id="gpaTitle">Know your GPA.</h1>
+                <p>
+                  Calculate a semester GPA from finalized course grades and
+                  eligible units.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="notice compact">
+            <span class="notice-icon">i</span>
+            <div>
+              <strong>Project-provided course and grade data</strong
+              ><span
+                >Confirm that course details and the conversion scale match your
+                current syllabus and instructor guidance.</span
+              >
+            </div>
+          </div>
+          <div class="semester-picker panel">
+            <div>
+              <strong>Choose the semester to track</strong
+              ><small
+                >Lecture and laboratory components are separate course
+                entries.</small
+              >
+            </div>
+            <label class="field"
+              ><span>Year level</span
+              ><select id="gpaYear">
+                <option value="">Select year</option>
+                <option value="1">First year</option>
+                <option value="2">Second year</option>
+              </select></label
+            ><label class="field"
+              ><span>Semester</span
+              ><select id="gpaSemester">
+                <option value="">Select semester</option>
+                <option value="1">First semester</option>
+                <option value="2">Second semester</option>
+              </select></label
+            >
+          </div>
+          <div class="gpa-summary-row">
+            <article class="gpa-total-card">
+              <span class="metric-caption">GPA COMPUTED</span>
+              <div id="gpaBigValue">—</div>
+              <p id="gpaBigHint">
+                Choose a year and semester to calculate GPA.
+              </p>
+            </article>
+            <article class="gpa-detail-card">
+              <span class="metric-caption">ELIGIBLE UNITS</span
+              ><strong id="gpaUnitValue">0</strong
+              ><small>Provisional and zero-unit courses don’t count.</small>
+            </article>
+            <article class="gpa-detail-card">
+              <span class="metric-caption">TOTAL COURSES</span
+              ><strong id="gpaFinalizedValue">0</strong
+              ><small id="gpaExcludedValue">0 excluded from GPA</small>
+            </article>
+          </div>
+          <article class="panel course-panel">
+            <div class="panel-heading">
+              <div>
+                <div class="page-kicker">SEMESTER RECORD</div>
+                <h2>Course grades</h2>
+                <p>Course units are filled from the curriculum list.</p>
+              </div>
+              <button class="danger-button" id="clearCourses" type="button">
+                Clear all
+              </button>
+            </div>
+            <form id="gpaForm" class="add-course-form" novalidate>
+              <label class="field course-select-field"
+                ><span>Course component</span
+                ><select id="gpaCourse" required></select></label
+              ><label class="field"
+                ><span>Midterm grade</span
+                ><input
+                  type="number"
+                  id="gpaMidterm"
+                  min="0"
+                  max="100"
+                  step="any"
+                  placeholder="e.g. 88"
+                  required /></label
+              ><label class="field"
+                ><span>Final-term grade</span
+                ><input
+                  type="number"
+                  id="gpaFinal"
+                  min="0"
+                  max="100"
+                  step="any"
+                  placeholder="e.g. 91"
+                  required /></label
+              ><label class="finalized-check"
+                ><input type="checkbox" id="gpaFinalized" /><span
+                  ><strong>Finalized?</strong
+                  ><small>Include this course in GPA</small></span
+                ></label
+              ><button class="primary-button add-course-button" type="submit">
+                Add course <span>+</span>
+              </button>
+            </form>
+            <div id="gpaErrors" class="error-box" role="alert" hidden></div>
+            <div class="course-table-wrap">
+              <table class="course-table">
+                <thead>
+                  <tr>
+                    <th scope="col">COURSE COMPONENT</th>
+                    <th scope="col">UNITS</th>
+                    <th scope="col">MIDTERM</th>
+                    <th scope="col">FINAL</th>
+                    <th scope="col">SEMESTER GRADE</th>
+                    <th scope="col">GRADE POINT</th>
+                    <th scope="col">STATUS</th>
+                    <th scope="col"><span class="sr-only">Remove</span></th>
+                  </tr>
+                </thead>
+                <tbody id="gpaRows"></tbody>
+              </table>
+              <div id="gpaEmpty" class="table-empty">
+                <span>∑</span><strong>No course grades yet</strong>
+                <p>
+                  Choose a year and semester, then add course components to
+                  calculate your GPA.
+                </p>
+              </div>
+            </div>
+          </article>
+          <footer class="page-footer">
+            Semester numerical grades are averaged and floored before
+            grade-point conversion.
+          </footer>
+        </section>
+
+        <section
+          class="view"
+          id="view-insights"
+          aria-labelledby="insightsTitle"
+        >
+          <div class="page-intro">
+            <div class="page-intro-card">
+              <div class="page-intro-content">
+                <div class="page-kicker">ACADEMIC INSIGHTS</div>
+                <h1 id="insightsTitle">
+                  Understand what your grades INDICATE.
+                </h1>
+                <p>
+                  Each indicator is based on a documented prototype rule applied
+                  to an eligible finalized grade.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="notice compact">
+            <span class="notice-icon">i</span>
+            <div>
+              <strong
+                >Indicators are for prototyping only. It is not an official
+                grading/standing.</strong
+              ><span>
+                These indicators do not predict student performance nor
+                determine the university decisions. They are based on the
+                set/configured thresholds.</span
+              >
+            </div>
+          </div>
+          <div class="insights-summary" id="insightsSummary"></div>
+          <div class="insight-grid" id="insightGrid"></div>
+          <div class="threshold-legend panel">
+            <div>
+              <span class="legend-dot red"></span
+              ><span
+                ><strong>Below 60</strong
+                ><small>Below supplied passing threshold</small></span
+              >
+            </div>
+            <div>
+              <span class="legend-dot yellow"></span
+              ><span
+                ><strong>60 to below 75</strong
+                ><small>May need attention</small></span
+              >
+            </div>
+            <div>
+              <span class="legend-dot green"></span
+              ><span
+                ><strong>75 to below 90</strong
+                ><small>No threshold alert</small></span
+              >
+            </div>
+            <div>
+              <span class="legend-dot purple-dot"></span
+              ><span
+                ><strong>90 and above</strong
+                ><small>Strong current result</small></span
+              >
+            </div>
+          </div>
+        </section>
+
+        <footer class="global-footer">
+          <span>GradeWise Grade Calculator and Predictor.</span
+          ><span
+            >This is a project prototype of the Group 7, and it may be subjected
+            to errors.</span
+          >
+        </footer>
+      </main>
+    </div>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>

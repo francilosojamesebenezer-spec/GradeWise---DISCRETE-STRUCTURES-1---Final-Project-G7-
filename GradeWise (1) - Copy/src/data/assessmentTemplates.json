@@ -1,0 +1,8 @@
+{
+  "description": "Supported syllabus category names only. No official category weights were supplied; users must enter weights from their syllabus or instructor.",
+  "components": {
+    "Lecture": ["EA", "SA", "CP"],
+    "Laboratory": ["EA", "SA"]
+  },
+  "weights": null
+}

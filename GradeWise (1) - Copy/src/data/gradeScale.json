@@ -1,0 +1,16 @@
+[
+  { "minimum": 98, "maximum": 100, "gradePoint": 4.00, "status": "Passed" },
+  { "minimum": 95, "maximum": 97, "gradePoint": 3.75, "status": "Passed" },
+  { "minimum": 92, "maximum": 94, "gradePoint": 3.50, "status": "Passed" },
+  { "minimum": 89, "maximum": 91, "gradePoint": 3.25, "status": "Passed" },
+  { "minimum": 86, "maximum": 88, "gradePoint": 3.00, "status": "Passed" },
+  { "minimum": 83, "maximum": 85, "gradePoint": 2.75, "status": "Passed" },
+  { "minimum": 80, "maximum": 82, "gradePoint": 2.50, "status": "Passed" },
+  { "minimum": 77, "maximum": 79, "gradePoint": 2.25, "status": "Passed" },
+  { "minimum": 74, "maximum": 76, "gradePoint": 2.00, "status": "Passed" },
+  { "minimum": 71, "maximum": 73, "gradePoint": 1.75, "status": "Passed" },
+  { "minimum": 68, "maximum": 70, "gradePoint": 1.50, "status": "Passed" },
+  { "minimum": 64, "maximum": 67, "gradePoint": 1.25, "status": "Passed" },
+  { "minimum": 60, "maximum": 63, "gradePoint": 1.00, "status": "Passed" },
+  { "minimum": 0, "maximum": 59, "gradePoint": 0.00, "status": "Failed" }
+]
